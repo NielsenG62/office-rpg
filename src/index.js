@@ -8,7 +8,7 @@ dude.class("Fighter");
 otherDude.class("Rogue");
 
 let rat = new Enemy();
-rat.npcGen("Intern");
+rat.npcGen("Boss' Kid");
 
 //tests
 console.log(dude, otherDude, rat);
