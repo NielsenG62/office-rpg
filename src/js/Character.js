@@ -1,4 +1,4 @@
-class Character {
+export default class Character {
   constructor(hp, attack, evade, defense){
     this.hp = hp;
     this.atk = attack;
@@ -60,17 +60,3 @@ class Character {
     }
   }
 }
-
-let dude = new Character();
-let otherDude = new Character();
-dude.class("Fighter");
-otherDude.class("Rogue");
-
-//tests
-console.log(dude, otherDude);
-dude.hp -= 10;
-console.table(dude);
-console.table(otherDude);
-dude.levelUp();
-otherDude.levelUp();
-console.log(`after lvl up`, dude, otherDude);
