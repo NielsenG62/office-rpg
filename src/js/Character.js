@@ -51,12 +51,15 @@ export default class Character {
   getItem(item) {
     if (item === "pen") {
       this.atk += 5;
+      this.inventory.push(item);
     } else if (item === "pocket-protector") {
       this.def += 5;
+      this.inventory.push(item);
     } else if (item === "coffee") {
-      this.hp += 5;
+      this.inventory.push(item);
     } else {
       this.eva += 5;
+      this.inventory.push(item);
     }
   }
 }
