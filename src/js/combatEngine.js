@@ -1,26 +1,22 @@
-// import Character from "./js/Character.js";
-// import Enemy from "./js/Enemy.js";
+import { displayWinModal } from "./../index.js";
+export {roll, attack, damage};
 
-/*start of turn event(s);
-*  -take potions
-*/
-//user event - attack
-//ai response - attack
-//end of turn event(s) - hp <= 0 ?  youWinOrLose();
-
-
-const randomize = (e) => {
+const roll = (e) => {
   let min = (Math.ceil(e));
   let max = 100;
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 const attack = (attacker, defender) => {
-  let attack = randomize(attacker.atk);
-  let evade = randomize(defender.eva);
-
+  let attack = roll(attacker.atk);
+  let evade = roll(defender.eva);
+  console.log(attack, evade);
+  
   if (attack > evade) {
     damage(attacker, defender);
+    if (defender.hp <= 0){
+      displayWinModal();
+    }
   } else if (evade > attack) {
     console.log("Attack missed!");
   } else if (attack === evade) {
@@ -32,6 +28,5 @@ const damage = (attacker, defender) => {
   let defReduced = defender.def/100;
   let atkReduced = attacker.atk*defReduced;
   let remainingAtk = attacker.atk - atkReduced;
-  return defender.hp - remainingAtk;
+  return defender.hp -= remainingAtk;
 };
-

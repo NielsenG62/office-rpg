@@ -1,0 +1,17 @@
+body {
+  background-color: blanchedalmond;
+}
+
+.output {
+  margin: 20%;
+}
+
+.canvas {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vh;
+}

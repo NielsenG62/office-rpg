@@ -1,6 +1,7 @@
 import "./css/styles.css";
 import Character from "./js/Character.js";
 import Enemy from "./js/Enemy.js";
+import { attack } from "./js/combatEngine.js";
 
 let dude = new Character();
 let otherDude = new Character();
@@ -10,9 +11,18 @@ otherDude.class("Rogue");
 let rat = new Enemy();
 rat.npcGen("Boss' Kid");
 
-//tests
-console.log(dude, otherDude, rat);
-dude.hp -= 10;
-dude.levelUp();
-otherDude.levelUp();
-console.log(`after lvl up`, dude, otherDude);
+
+const button = document.getElementById("button");
+button.addEventListener("click", () => { 
+
+  attack(dude, rat);
+  attack(rat, dude);
+
+});
+
+export const displayWinModal = () => {
+  let canvas = document.querySelector(`.canvas`);
+  let p = document.createElement("p");
+  canvas.append(p);
+  p.textContent = `You win.`;
+};
