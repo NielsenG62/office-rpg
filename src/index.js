@@ -10,14 +10,14 @@ otherDude.class("Rogue");
 
 let rat = new Enemy();
 rat.npcGen("Boss' Kid");
-
+updateHealthBars(dude, rat);
 
 const button = document.getElementById("button");
 button.addEventListener("click", () => { 
-
   attack(dude, rat);
+  updateHealthBars(dude, rat);
   attack(rat, dude);
-
+  updateHealthBars(dude, rat);
 });
 
 export const displayWinModal = () => {
@@ -26,3 +26,20 @@ export const displayWinModal = () => {
   canvas.append(p);
   p.textContent = `You win.`;
 };
+
+function updateHealthBars(character, enemy) {
+  let hp1 = document.getElementById(`hp1`);
+  let hp2 = document.getElementById(`hp2`);
+  const percentage1 = (character.hp / character.maxHp) * 100;
+  const percentage2 = parseInt((enemy.hp/ enemy.maxHp) * 100);
+  hp1.style.cssText = `
+    background: lightblue;
+    width: ${percentage1}%;
+    height: 100%;
+  `;
+  hp2.style.cssText = `
+    background: rgb(218, 83, 83);
+    width: ${percentage2}%;
+    height: 100%;
+  `;
+}

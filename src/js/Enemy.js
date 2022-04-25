@@ -1,6 +1,7 @@
 export default class Enemy {
   constructor(hp, attack, evade, defense){
     this.hp = hp;
+    this.maxHp = hp;
     this.atk = attack;
     this.eva = evade;
     this.def = defense;
@@ -14,24 +15,28 @@ export default class Enemy {
       this.eva = 60;
       this.def = 30;
       this.enemyType = "Intern";
+      this.maxHp = this.hp;
     }else if (type === "Energy Vampire") {
       this.hp = 60;
       this.atk = 50;
       this.eva = 80;
       this.def = 40;
       this.enemyType = "Energy Vampire";
+      this.maxHp = this.hp;
     }else if (type === "Boss") {
       this.hp = 80;
       this.atk = 75;
       this.eva = 45;
       this.def = 65;
       this.enemyType = "Boss";
+      this.maxHp = this.hp;
     }else {
       this.hp = 50;
       this.atk = 25;
       this.eva = 40;
       this.def = 50;
       this.enemyType = "Boss' Kid";
+      this.maxHp = this.hp;
     }
   }
 }
