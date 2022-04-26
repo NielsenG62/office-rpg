@@ -5,6 +5,12 @@
 </head>
 <body>
   <div class="container">
+    <select id="selector" class="form-select" aria-label="Choose Fighter">
+      <option selected>Choose Your Fighter</option>
+      <option value="Fighter">New Hire</option>
+      <option value="Rogue">Wiley Elder Statesman</option>
+      <option value="Tank">Frank Reynolds</option>
+    </select>
     <div class="main">
       <div class="menu">
         <div class="player-bar">
@@ -12,13 +18,16 @@
             <div id="hp1"></div>
           </div>
         </div>
+        <div class="button-wrapper">
+          <button class="btn btn-danger" type="button" id="button">Attack.</button>
+        </div>
+        <div class="button-wrapper">
+          <button class="btn btn-success" type="button" id="drink">Drink Coffee.</button>
+        </div>
         <div class="enemy-bar">
           <div class="hp-wrapper">
             <div id="hp2"></div>
           </div>
-        </div>
-        <div class="button-wrapper">
-          <button class="btn btn-info" type="button" id="button">Roll dice.</button>
         </div>
       </div>
     </div>
@@ -26,6 +35,12 @@
       <div class="canvas">
         <div class="button-wrapper">
           <button class="btn btn-success" type="button" id="shopKeep">Enter shop.</button>
+        </div>
+        <div class="button-wrapper">
+          <button class="btn btn-warning" type="button" id="goBack">Go Back To Work.</button>
+        </div>
+        <div class="button-wrapper">
+          <button class="btn btn-danger" type="button" id="bossFight">Face the Boss.</button>
         </div>
       </div>
       <div class="shop">

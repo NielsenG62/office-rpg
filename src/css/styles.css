@@ -19,7 +19,7 @@ body {
   display: flex;
 }
 
-#shopKeep {
+#shopKeep, #goBack, #bossFight {
   display: none;
 }
 
@@ -55,4 +55,16 @@ body {
   align-items: center;
   border: 1px solid;
   padding: 10%;
+}
+/* 
+#goBack, #bossFight {
+  display: none;
+} */
+
+#selector {
+  width: 40%;
+  color: red;
+  background-color: lightgrey;
+  margin-top: 20px;
+  font-weight: bold;
 }

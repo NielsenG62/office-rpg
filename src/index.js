@@ -10,7 +10,6 @@ let dude = new Character();
 let otherDude = new Character();
 dude.class("Fighter");
 otherDude.class("Rogue");
-
 let rat = new Enemy();
 rat.npcGen("Boss' Kid");
 updateHealthBars(dude, rat);
@@ -18,11 +17,32 @@ updateHealthBars(dude, rat);
 export const displayWinModal = () => {
   let canvas = document.querySelector(`.canvas`);
   let p = document.createElement("p");
+  let goBack = document.getElementById("goBack");
+  let bossFight = document.getElementById("bossFight");
+  let dice = document.getElementById("button");
   canvas.append(p);
   p.textContent = `You win.`;
 
-  // let displayShopButton = document.getElementById("shopKeep");
+  dice.setAttribute("disabled", true);
   shopKeep.style.display = "block";
+  goBack.style.display = "block";
+  bossFight.style.display = "block";
+
+  backToWork();
+
+};
+
+const backToWork = () => {
+  let goBack = document.getElementById("goBack");
+  let bossFight = document.getElementById("bossFight");
+  let dice = document.getElementById("button");
+  
+  goBack.addEventListener("click", () => {
+    dice.setAttribute("disabled", false);
+    shopKeep.style.display = "none";
+    goBack.style.display = "none";
+    bossFight.style.display = "none";
+  });
 };
 
 function updateHealthBars (character, enemy){
@@ -70,7 +90,7 @@ shopKeep.addEventListener("click", function(){
   // buy(dude, shopkeep.items[1])
   console.log("clicked");
   populate();
-  shopKeep.setAttribute(`disabled`,``);
+  shopKeep.setAttribute(`disabled`, true);
   let shop = document.querySelector(".shop");
   shop.style.display = "block";
 });
@@ -125,17 +145,6 @@ const exitButton = () => {
   
     let shopKeep = document.getElementById("shopKeep");
     shopKeep.removeAttribute("disabled");
-
-    
-
-        
-    // const clearModal = () => {
-    //   let canvas = document.querySelector(".canvas");
-    //   if (canvas.hasChildNodes()){
-    //     canvas.removeChild(canvas.firstChild);
-    //   }
-    // };
-
-
   });
 };
+

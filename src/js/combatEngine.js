@@ -1,5 +1,7 @@
 import { displayWinModal } from "./../index.js";
-export {roll, attack, damage};
+import Character from "./Character.js";
+export {roll, attack, damage, drink};
+
 
 const roll = (e) => {
   let min = (Math.ceil(e));
@@ -29,4 +31,27 @@ const damage = (attacker, defender) => {
   let atkReduced = attacker.atk*defReduced;
   let remainingAtk = attacker.atk - atkReduced;
   return defender.hp -= remainingAtk;
+};
+
+const drink = (character, drink) => {
+  if (drink === "latte") {
+    character.hp += 30;
+    removeDrink(drink);
+  } else if (drink === "mocha") {
+    character.hp += 50;
+    removeDrink(drink);
+  } else if (drink === "espresso") {
+    character.hp += 70;
+    removeDrink(drink);
+  } else {
+    console.log("Invalid drink type");
+  }
+};
+
+const removeDrink = (drink) => {
+  let index = Character.inventory.findIndex(obj => {
+    return obj.name === drink;
+  });
+  console.log(index);
+  Character.inventory.splice(index, 1);
 };
