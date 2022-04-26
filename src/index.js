@@ -77,7 +77,8 @@ shopKeep.addEventListener("click", function(){
   // buy(dude, shopkeep.items[1])
   console.log("clicked");
   populate();
-  // buy(dude, )
+  // // shop.style.display = `show`;
+  shopKeep.setAttribute(`disabled`,``);
 });
 
 //UI shopkeep
@@ -89,7 +90,7 @@ export const populate = () => {
     const index = shopkeep.items.indexOf(item);
     const shopItem = shopkeep.items[index].name;
     const div = document.createElement("div");
-    div.classList.add("itemBox");
+    div.classList.add(`itemBox`);
     shopMenu.appendChild(div);
     div.innerHTML = `
       <div class="itemGrid">
@@ -103,6 +104,27 @@ export const populate = () => {
       let itemIndex = buyBtn.value;
       console.log("clicked", itemIndex);
       buy(dude, itemIndex);
+      buyBtn.setAttribute(`disabled`,``);
     });
+
+  });
+  exitButton();
+};
+
+const exitButton = () => {
+  let exit = document.createElement("button");
+  exit.setAttribute("id", "exit");
+  exit.textContent = "Exit Shop";
+  let shop = document.querySelector(".shop");
+  shop.appendChild(exit);
+  let doneShopping = document.getElementById("exit");
+  doneShopping.addEventListener("click", function(){
+    let itemBox = document.querySelectorAll(".itemBox");
+    while (itemBox.firstChild){
+      itemBox.removeChild(itemBox.firstChild);
+    }
+  
+    let shopKeep = document.getElementById("shopKeep");
+    shopKeep.removeAttribute("disabled", "");
   });
 };

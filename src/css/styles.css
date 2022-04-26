@@ -29,7 +29,7 @@ body {
 }
 
 .shop {
-  display: show;
+  display: none;
   background-color: rgba(185, 112, 112, 0.6);
   height: 60vh;
   width: 60vw;
