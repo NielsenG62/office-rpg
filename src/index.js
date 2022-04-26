@@ -59,7 +59,15 @@ button.addEventListener("click", () => {
 export const buy = (character, item) => {
   character.money -= item.price;
   character.getItem(item);
-  let index = shopkeep.items.indexOf(item);
+  /*
+  shopkeep.items.indexOf checks "espresso" or "union card" === [{},{},{}]
+  {name: "espresso"}
+
+  */
+  let index = shopkeep.items.findIndex(obj => {
+    return obj.name === item;
+  });
+  console.log(index);
   shopkeep.items.splice(index, 1);
   console.log(dude, shopkeep);
 };
