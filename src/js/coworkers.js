@@ -1,4 +1,4 @@
-import Enemy from "./js/Enemy.js";
+import Enemy from "./Enemy.js";
 
 export {coworkers as coworkers};
 
@@ -25,7 +25,7 @@ Jarod.npcGen("Intern");
 Bill.npcGen("Intern");
 Samantha.npcGen("Intern");
 Jill.npcGen("Intern");
-Britney.pcGen("Intern");
+Britney.npcGen("Intern");
 
 Charles.npcGen("Energy Vampire");
 Gabe.npcGen("Energy Vampire");

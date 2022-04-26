@@ -5,6 +5,7 @@ import Character from "./js/Character.js";
 import Enemy from "./js/Enemy.js";
 import { attack } from "./js/combatEngine.js";
 import {shopkeep} from "./js/shopKeep.js";
+import {coworkers} from "./js/coworkers.js";
 
 let dude = new Character();
 let otherDude = new Character();
@@ -27,23 +28,26 @@ export const displayWinModal = () => {
   shopKeep.style.display = "block";
   goBack.style.display = "block";
   bossFight.style.display = "block";
-
-  backToWork();
-
 };
 
 const backToWork = () => {
   let goBack = document.getElementById("goBack");
   let bossFight = document.getElementById("bossFight");
   let dice = document.getElementById("button");
-  
+  // let p = document.querySelectorAll("div.canvas > p");
+
   goBack.addEventListener("click", () => {
-    dice.setAttribute("disabled", false);
+    dice.removeAttribute("disabled");
     shopKeep.style.display = "none";
     goBack.style.display = "none";
     bossFight.style.display = "none";
+    // p.forEach((e) => {
+    //   e.remove();
+    // });
   });
 };
+
+backToWork();
 
 function updateHealthBars (character, enemy){
   let hp1 = document.getElementById(`hp1`);
@@ -148,3 +152,9 @@ const exitButton = () => {
   });
 };
 
+const getCoworker = () => {
+  let size = Object.keys(coworkers).length;
+  let max = size;
+  return Math.floor(Math.random() * (max - 0 + 1) + 0);
+};
+console.log(getCoworker());
