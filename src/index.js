@@ -20,15 +20,10 @@ export const displayWinModal = () => {
   let p = document.createElement("p");
   canvas.append(p);
   p.textContent = `You win.`;
+
+  // let displayShopButton = document.getElementById("shopKeep");
+  shopKeep.style.display = "block";
 };
-
-// const clearModal = () => {
-//   let canvas = document.querySelector(".canvas");
-//   if (canvas.hasChildNodes()){
-//     canvas.removeChild(canvas.firstChild);
-//   }
-// };
-
 
 function updateHealthBars (character, enemy){
   let hp1 = document.getElementById(`hp1`);
@@ -51,7 +46,6 @@ const button = document.getElementById("button");
 button.addEventListener("click", () => {
   attack(dude, rat);
   updateHealthBars(dude, rat);
-  //check after each attack and update hp, if hp <= 0, do something();
   attack(rat, dude);
   updateHealthBars(dude, rat);
 });
@@ -62,7 +56,6 @@ export const buy = (character, item) => {
   /*
   shopkeep.items.indexOf checks "espresso" or "union card" === [{},{},{}]
   {name: "espresso"}
-
   */
   let index = shopkeep.items.findIndex(obj => {
     return obj.name === item;
@@ -77,8 +70,9 @@ shopKeep.addEventListener("click", function(){
   // buy(dude, shopkeep.items[1])
   console.log("clicked");
   populate();
-  // // shop.style.display = `show`;
   shopKeep.setAttribute(`disabled`,``);
+  let shop = document.querySelector(".shop");
+  shop.style.display = "block";
 });
 
 //UI shopkeep
@@ -104,7 +98,7 @@ export const populate = () => {
       let itemIndex = buyBtn.value;
       console.log("clicked", itemIndex);
       buy(dude, itemIndex);
-      buyBtn.setAttribute(`disabled`,``);
+      buyBtn.setAttribute(`disabled`, true);
     });
 
   });
@@ -119,12 +113,29 @@ const exitButton = () => {
   shop.appendChild(exit);
   let doneShopping = document.getElementById("exit");
   doneShopping.addEventListener("click", function(){
-    let itemBox = document.querySelectorAll(".itemBox");
-    while (itemBox.firstChild){
-      itemBox.removeChild(itemBox.firstChild);
+    let shopMenu = document.querySelector(".shopMenu");
+    let itemBoxes = document.querySelectorAll(".itemBox");
+    if (shopMenu.hasChildNodes()){
+      itemBoxes.forEach(function(e){
+        e.remove();
+      });
+      exit.remove();
     }
+    shop.style.display = "none";
   
     let shopKeep = document.getElementById("shopKeep");
-    shopKeep.removeAttribute("disabled", "");
+    shopKeep.removeAttribute("disabled");
+
+    
+
+        
+    // const clearModal = () => {
+    //   let canvas = document.querySelector(".canvas");
+    //   if (canvas.hasChildNodes()){
+    //     canvas.removeChild(canvas.firstChild);
+    //   }
+    // };
+
+
   });
 };
