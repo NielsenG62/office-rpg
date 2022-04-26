@@ -28,26 +28,22 @@ export const displayWinModal = () => {
   shopKeep.style.display = "block";
   goBack.style.display = "block";
   bossFight.style.display = "block";
+  backToWork(p);
+
 };
 
-const backToWork = () => {
+const backToWork = (p) => {
   let goBack = document.getElementById("goBack");
   let bossFight = document.getElementById("bossFight");
   let dice = document.getElementById("button");
-  // let p = document.querySelectorAll("div.canvas > p");
-
   goBack.addEventListener("click", () => {
+    p.textContent = "";
     dice.removeAttribute("disabled");
     shopKeep.style.display = "none";
     goBack.style.display = "none";
     bossFight.style.display = "none";
-    // p.forEach((e) => {
-    //   e.remove();
-    // });
   });
 };
-
-backToWork();
 
 function updateHealthBars (character, enemy){
   let hp1 = document.getElementById(`hp1`);
@@ -64,6 +60,29 @@ function updateHealthBars (character, enemy){
     width: ${percentage2}%;
     height: 100%;
   `;
+
+  let charClass = document.getElementById("class");
+  let level = document.getElementById(`level`);
+  let health = document.getElementById("health");
+  let totalHealth = document.getElementById("total-health");
+  let attack = document.getElementById("attack");
+  let evasion = document.getElementById("evasion");
+  let defense = document.getElementById("defense");
+
+  charClass.textContent = `Class: ${character.classType}`;
+  level.textContent = character.lvl;
+  health.textContent = character.hp;
+  totalHealth.textContent = character.maxHp;
+  attack.textContent = character.atk;
+  evasion.textContent = character.eva;
+  defense.textContent = character.def;
+
+  let pocket = document.getElementById("pocket");
+  character.inventory.forEach((e) => {
+    pocket.innerHTML = `
+    <li>${e}</li>;
+  `;
+  });
 }
 
 const button = document.getElementById("button");
