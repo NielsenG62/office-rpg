@@ -10,8 +10,4 @@ let shopkeep = {
     {name: "stapler", price: 3}, 
     {name: "union-card", price: 5}, 
     {name: "class-action-lawsuit", price: 20}]
-  // sellItem: function sell(character){
-  //   let item = shopkeep.potions.name;
-  //   character.inventory.push(this);
-  
 };

@@ -15,6 +15,7 @@ body {
 
 .output {
   margin: 20%;
+  display: flex;
 }
 
 .canvas {
@@ -25,4 +26,28 @@ body {
   align-items: center;
   width: 60vw;
   height: 60vh;
+}
+
+.shop {
+  display: show;
+  background-color: rgba(185, 112, 112, 0.6);
+  height: 60vh;
+  width: 60vw;
+  position: absolute;
+}
+
+.shopMenu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.itemGrid {
+  width: 15%;
+  height: 15%;
+}
+
+.itemBox {
+  align-items: center;
+  border: 1px solid;
+  padding: 10%;
 }

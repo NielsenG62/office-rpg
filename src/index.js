@@ -1,8 +1,10 @@
+import 'bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css";
 import Character from "./js/Character.js";
 import Enemy from "./js/Enemy.js";
 import { attack } from "./js/combatEngine.js";
-import {shopkeep} from "./js/shopKeep.js"
+import {shopkeep} from "./js/shopKeep.js";
 
 let dude = new Character();
 let otherDude = new Character();
@@ -45,7 +47,6 @@ function updateHealthBars (character, enemy){
   `;
 }
 
-
 const button = document.getElementById("button");
 button.addEventListener("click", () => {
   attack(dude, rat);
@@ -55,13 +56,45 @@ button.addEventListener("click", () => {
   updateHealthBars(dude, rat);
 });
 
-const buy = (character, item) => {
+export const buy = (character, item) => {
   character.money -= item.price;
   character.getItem(item);
-  const index = shopkeep.items.indexOf(item);
+  let index = shopkeep.items.indexOf(item);
   shopkeep.items.splice(index, 1);
   console.log(dude, shopkeep);
 };
 
 const shopKeep = document.getElementById("shopKeep");
-shopKeep.addEventListener("click", buy(dude, shopkeep.items[1]));
+shopKeep.addEventListener("click", function(){
+  // buy(dude, shopkeep.items[1])
+  console.log("clicked");
+  populate();
+  // buy(dude, )
+});
+
+//UI shopkeep
+const shopMenu = document.querySelector(".shopMenu");
+
+export const populate = () => {
+  let items = shopkeep.items;
+  items.forEach((item) => {
+    const index = shopkeep.items.indexOf(item);
+    const shopItem = shopkeep.items[index].name;
+    const div = document.createElement("div");
+    div.classList.add("itemBox");
+    shopMenu.appendChild(div);
+    div.innerHTML = `
+      <div class="itemGrid">
+        <p>${items[index].name}</p>
+        <p>$${items[index].price}</p>
+        <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItem}>Buy</button></div>
+      </div>
+    `;
+    const buyBtn = document.getElementById(`shopIndex${index}`);
+    buyBtn.addEventListener("click",  function(){
+      let itemIndex = buyBtn.value;
+      console.log("clicked", itemIndex);
+      buy(dude, itemIndex);
+    });
+  });
+};

@@ -62,4 +62,18 @@ export default class Character {
       this.inventory.push(item);
     }
   }
+
+  consume(item) {
+    const index = Character.items.indexOf(item);
+    if (item === "espresso"){
+      this.hp += 50;
+      Character.items.splice(index, 1);
+    }else if (item === "mocha"){
+      this.hp += 30;
+      Character.items.splice(index, 1);
+    }else {
+      this.hp += 10;
+      Character.items.splice(index, 1);
+    }
+  }
 }
