@@ -1,6 +1,6 @@
 import { displayWinModal } from "./../index.js";
-import Character from "./Character.js";
-export {roll, attack, damage, drink};
+// import Character from "./Character.js";
+export {roll, attack, damage};
 
 
 const roll = (e) => {
@@ -22,6 +22,7 @@ const attack = (attacker, defender) => {
         attacker.levelUp();
         console.log(attacker);
         displayWinModal();
+
       } else {
         console.log("you lose");
         let canvas = document.querySelector(".canvas");
@@ -32,8 +33,16 @@ const attack = (attacker, defender) => {
     }
   } else if (evade > attack) {
     console.log("Attack missed!");
+    let canvas = document.querySelector(".canvas");
+    let h2 = document.createElement("h2");
+    h2.textContent = "Attack missed!";
+    canvas.append(h2);
   } else if (attack === evade) {
     console.log("Git Gud");
+    let canvas = document.querySelector(".canvas");
+    let h2 = document.createElement("h2");
+    h2.textContent = "Git Gud.";
+    canvas.append(h2);
   }
 };
 
@@ -44,25 +53,3 @@ const damage = (attacker, defender) => {
   return Math.round(defender.hp -= remainingAtk);
 };
 
-const drink = (character, drink) => {
-  if (drink === "latte") {
-    character.hp += 30;
-    removeDrink(drink);
-  } else if (drink === "mocha") {
-    character.hp += 50;
-    removeDrink(drink);
-  } else if (drink === "espresso") {
-    character.hp += 70;
-    removeDrink(drink);
-  } else {
-    console.log("Invalid drink type");
-  }
-};
-
-const removeDrink = (drink) => {
-  let index = Character.inventory.findIndex(obj => {
-    return obj.name === drink;
-  });
-  console.log(index);
-  Character.inventory.splice(index, 1);
-};

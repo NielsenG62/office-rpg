@@ -60,24 +60,21 @@ export default class Character {
     } else if (item.name === "stapler") {
       this.eva += 3;
       this.inventory.push(item);
-    } else if (item.name === "espresso" || item.name === "mocha" || item.name === "latte") {
-      this.inventory.push(item);
+    } else if (item.name === "latte") {
+      this.hp += 30;
+    } else if (item.name === "mocha") {
+      this.hp += 50;
+    } else if (item.name === "espresso") {
+      this.hp += 70;
+    } else if (item.name === "class-action-lawsuit") {
+      this.hp += 50;
+      this.att += 5;
+      this.def += 5;
+      this.eva += 5;
+    } else if (item.name === "union-card") {
+      this.hp += 15;
     } else {
       console.log("something went wrong");
-    }
-  }
-
-  consume(item) {
-    const index = Character.items.indexOf(item);
-    if (item === "espresso"){
-      this.hp += 50;
-      Character.items.splice(index, 1);
-    }else if (item === "mocha"){
-      this.hp += 30;
-      Character.items.splice(index, 1);
-    }else {
-      this.hp += 10;
-      Character.items.splice(index, 1);
     }
   }
 }

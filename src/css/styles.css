@@ -49,10 +49,10 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.itemGrid {
+/* .itemGrid {
   width: 15%;
   height: 15%;
-}
+} */
 
 .itemBox {
   align-items: center;
@@ -77,7 +77,12 @@ body {
   display: inline-block;
   padding: 1em;
   padding-right: 3em;
-  border: 1px solid black;
+  border: 3px double black;
+}
+
+#character:hover {
+  border: 3px double red;
+  color: red;
 }
 
 #start {
@@ -85,6 +90,10 @@ body {
   align-items: center;
   margin: auto;
   margin-top: 15px;
+}
+
+#button:hover {
+  
 }
 
 .statsAndDisplay {
@@ -98,4 +107,8 @@ body {
 
 h1, h2, h3 {
   margin: 1rem;
+}
+
+.button-wrapper {
+  margin-bottom: 5px;
 }

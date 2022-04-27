@@ -47,9 +47,17 @@ start.addEventListener("click", () => {
   const backToWork = () => {
     const goBack = document.getElementById("goBack");
     goBack.addEventListener("click", () => {
+      player.inventory.forEach((obj) => {
+        if ("union-card" in obj) {
+          player.hp += 15;
+        }
+      });
+
       let bossFight = document.getElementById("bossFight");
       let dice = document.getElementById("button");
       enemy = get();
+      enemy.hp += (player.lvl * 2);
+      enemy.maxHp = enemy.hp;
       let p = document.querySelector(".postFightText");
       p.textContent = "";
       dice.removeAttribute("disabled");
@@ -193,7 +201,7 @@ start.addEventListener("click", () => {
           <img src="${shopItemIndex.img}" alt="${shopItemName} image">
           <p>${shopItemName}</p>
           <p>$${shopItemPrice}</p>
-          <p>$${bonus}</p>
+          <p>${bonus}</p>
           <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItemName}>Buy</button></div>
         </div>
       `;
@@ -205,6 +213,7 @@ start.addEventListener("click", () => {
         if (player.money >= items[index].price) {
           buy(player, idWithIndex, items[index]);
           buyBtn.setAttribute(`disabled`, true);
+          updateHealthBars (player, enemy);
         } else {
           console.log("insufficient funds");
         }
@@ -237,6 +246,11 @@ start.addEventListener("click", () => {
 });
 
 export const displayWinModal = () => {
+  let canvas = document.querySelectorAll(".canvas > h2");
+  canvas.forEach((e) => {
+    e.remove();
+  });
+
   let p = document.querySelector(".postFightText");
   let goBack = document.getElementById("goBack");
   let bossFight = document.getElementById("bossFight");

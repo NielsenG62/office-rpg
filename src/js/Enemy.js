@@ -1,3 +1,5 @@
+// import Character from "./../index.js";
+
 export default class Enemy {
   constructor(hp, attack, evade, defense){
     this.hp = hp;
@@ -7,6 +9,11 @@ export default class Enemy {
     this.def = defense;
     this.enemyType = {};
   }
+
+  // scale(Character) {
+  //   let scale = (Character.lvl * 5);
+  //   return scale;
+  // } 
 
   npcGen(type) {
     if (type === "Intern") {
