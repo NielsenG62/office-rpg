@@ -30,7 +30,7 @@ export default class Character {
       this.hp = 90;
       this.atk = 50;
       this.eva = 30;
-      this.def = 80;
+      this.def = 75;
       this.maxHp = this.hp;
       this.classType = "Tank";
     }
@@ -52,13 +52,13 @@ export default class Character {
 
   getItem(item) {
     if (item.name === "pen") {
-      this.atk += 5;
+      this.atk += 3;
       this.inventory.push(item);
     } else if (item.name === "pocket-protector") {
-      this.def += 5;
+      this.def += 3;
       this.inventory.push(item);
     } else if (item.name === "stapler") {
-      this.eva += 5;
+      this.eva += 3;
       this.inventory.push(item);
     } else if (item.name === "espresso" || item.name === "mocha" || item.name === "latte") {
       this.inventory.push(item);

@@ -110,14 +110,17 @@ start.addEventListener("click", () => {
 
     charClass.textContent = `Class: ${player.classType}`;
     level.textContent = player.lvl;
-    health.textContent = player.hp;
+    health.textContent = Math.round(player.hp);
     totalHealth.textContent = player.maxHp;
     attack.textContent = player.atk;
     evasion.textContent = player.eva;
     defense.textContent = player.def;
-    
+
     let money = document.getElementById("money");
     money.textContent = player.money;
+
+    // let pocket = document.getElementById("pocket");
+    // pocket.textContent = player.inventory;
   }
 
   const buy = (player, nameOfItem, itemWithIndex) => {
@@ -129,7 +132,11 @@ start.addEventListener("click", () => {
 
     let money = document.getElementById("money");
     money.textContent = player.money;
-    console.log(index);
+    let pocket = document.getElementById("pocket");
+    let newItems = document.createElement("li");
+    pocket.append(newItems);
+    newItems.textContent = nameOfItem;
+    
     shopkeep.items.splice(index, 1);
     console.log(player, shopkeep);
 
