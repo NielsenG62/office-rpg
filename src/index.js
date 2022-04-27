@@ -16,27 +16,34 @@ rat.npcGen("Boss' Kid");
 updateHealthBars(dude, rat);
 
 export const displayWinModal = () => {
-  let canvas = document.querySelector(`.canvas`);
-  let p = document.createElement("p");
+  // let canvas = document.querySelector(`.canvas`);
+  // let p = document.createElement("p");
+  let p = document.querySelector(".postFightText");
   let goBack = document.getElementById("goBack");
   let bossFight = document.getElementById("bossFight");
   let dice = document.getElementById("button");
-  canvas.append(p);
+  // canvas.append(p);
+  // p.classList.add("postFightText");
   p.textContent = `You win.`;
 
   dice.setAttribute("disabled", true);
   shopKeep.style.display = "block";
   goBack.style.display = "block";
   bossFight.style.display = "block";
-  backToWork(p);
-
 };
 
-const backToWork = (p) => {
-  let goBack = document.getElementById("goBack");
-  let bossFight = document.getElementById("bossFight");
-  let dice = document.getElementById("button");
+const backToWork = () => {
+  const goBack = document.getElementById("goBack");
   goBack.addEventListener("click", () => {
+    let bossFight = document.getElementById("bossFight");
+    let dice = document.getElementById("button");
+    const get = () => {
+      let name = getCoworker();
+      console.log(coworkers[name]);
+    };
+    get();
+
+    let p = document.querySelector(".postFightText");
     p.textContent = "";
     dice.removeAttribute("disabled");
     shopKeep.style.display = "none";
@@ -44,6 +51,8 @@ const backToWork = (p) => {
     bossFight.style.display = "none";
   });
 };
+backToWork();
+
 
 function updateHealthBars (character, enemy){
   let hp1 = document.getElementById(`hp1`);
@@ -172,8 +181,7 @@ const exitButton = () => {
 };
 
 const getCoworker = () => {
-  let size = Object.keys(coworkers).length;
-  let max = size;
-  return Math.floor(Math.random() * (max - 0 + 1) + 0);
+  const keys = Object.keys(coworkers);
+  
+  return keys[Math.floor(Math.random() * keys.length)];
 };
-console.log(getCoworker());
