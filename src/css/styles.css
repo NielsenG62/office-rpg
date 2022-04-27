@@ -41,7 +41,7 @@ body {
   margin: auto;
   height: 60vh;
   width: 60vw;
-  /* position: absolute; */
+  position: absolute;
 }
 
 .shopMenu {
@@ -58,7 +58,7 @@ body {
   align-items: center;
   border: 1px solid;
   padding: 10%;
-  background-color: rgba(185, 112, 112, 0.6);
+  background-color: rgba(185, 112, 112, 0.9);
 }
 /* 
 #goBack, #bossFight {
@@ -85,4 +85,10 @@ body {
   display: flex;
   align-items: center;
   margin: auto;
+  margin-top: 15px;
+}
+
+.statsAndDisplay {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }

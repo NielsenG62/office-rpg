@@ -1,9 +1,11 @@
+
 export {shopkeep as shopkeep};
+// import * as espresso from "./../img/espresso.png";
 
 let shopkeep = {
   items: [
-    {name: "espresso", price: 5, bonus: 5}, 
-    {name: "mocha", price: 3, bonus: 3}, 
+    {name: "espresso", price: 5, bonus: 5, img: ""}, 
+    {name: "mocha", price: 3, bonus: 3, img: ""}, 
     {name: "latte", price: 1, bonus: 1},
     {name: "pen", price: 1},
     {name: "pocket-protector", price: 3}, 

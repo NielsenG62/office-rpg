@@ -32,39 +32,40 @@
         </div>
       </div>
     </div>
-    <div id="character">
-      <div id="stats">
-        <h3 id="class">Character Class Here</h3>
-        <p>Level: <span id="level"></span></p>
-        <p>Health: <span id="health"></span> / <span id="total-health"></span></p>
-        <p>Attack: <span id="attack"></span></p>
-        <p>Evasion: <span id="evasion"></span></p>
-        <p>Defense: <span id="defense"></span></p>
-      </div>
-      <div id="inventory">
-        <h4>Inventory:</h4>
-        <ul id="pocket">
-          
-        </ul>
-      </div>
-    </div>
-    <div class="output">
-      <div class="canvas">
-        <div class="button-wrapper">
-          <button class="btn btn-success" type="button" id="shopKeep">Enter shop.</button>
+    <div class="statsAndDisplay">
+      <div id="character">
+        <div id="stats">
+          <h3 id="class">Character Class Here</h3>
+          <p>Level: <span id="level"></span></p>
+          <p>Health: <span id="health"></span> / <span id="total-health"></span></p>
+          <p>Attack: <span id="attack"></span></p>
+          <p>Evasion: <span id="evasion"></span></p>
+          <p>Defense: <span id="defense"></span></p>
         </div>
-        <div class="button-wrapper">
-          <button class="btn btn-warning" type="button" id="goBack">Go Back To Work.</button>
-        </div>
-        <div class="button-wrapper">
-          <button class="btn btn-danger" type="button" id="bossFight">Face the Boss.</button>
-        </div>
-        <div class="displayText">
-          <p class="postFightText"></p>
+        <div id="inventory">
+          <h4>Inventory:</h4>
+          <h5>Money $<span id="money"></span></h5>
+          <ul id="pocket"></ul>
         </div>
       </div>
-      <div class="shop">
-        <div class="shopMenu"></div>
+      <div class="output">
+        <div class="canvas">
+          <div class="button-wrapper">
+            <button class="btn btn-success" type="button" id="shopKeep">Enter shop.</button>
+          </div>
+          <div class="button-wrapper">
+            <button class="btn btn-warning" type="button" id="goBack">Go Back To Work.</button>
+          </div>
+          <div class="button-wrapper">
+            <button class="btn btn-danger" type="button" id="bossFight">Face the Boss.</button>
+          </div>
+          <div class="displayText">
+            <p class="postFightText"></p>
+          </div>
+        </div>
+        <div class="shop">
+          <div class="shopMenu"></div>
+        </div>
       </div>
     </div>
   </div>

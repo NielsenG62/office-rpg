@@ -2,7 +2,7 @@ import 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css";
 import Character from "./js/Character.js";
-import Enemy from "./js/Enemy.js";
+// import Enemy from "./js/Enemy.js";
 import { attack } from "./js/combatEngine.js";
 import {shopkeep} from "./js/shopKeep.js";
 import {coworkers} from "./js/coworkers.js";
@@ -10,8 +10,10 @@ import {coworkers} from "./js/coworkers.js";
 const start = document.getElementById("start");
 start.addEventListener("click", () => {
   let player = new Character();
-  player.class("Fighter");
-  let enemy = new Enemy();
+  let selector = document.getElementById("selector");
+  let characterClass = selector.options[selector.selectedIndex].value;
+  player.class(characterClass);
+  let enemy;
 
   //generate Enemy process:
   const getCoworker = () => {
@@ -21,53 +23,30 @@ start.addEventListener("click", () => {
 
   const get = () => {
     let name = getCoworker();
-    console.log(coworkers[name]);
+    console.log(name, coworkers[name]);
     return coworkers[name];
   };
 
   let enemyClass = get();
-  enemy.npcGen(enemyClass);
-  updateHealthBars(player, enemy);
+  // enemy.npcGen(enemyClass);
+  updateHealthBars(player, enemyClass);
 
 
   const button = document.getElementById("button");
   button.addEventListener("click", () => {
-    attack(player, enemy);
-    updateHealthBars(player, enemy);
-    attack(enemy, player);
-    updateHealthBars(player, enemy);
+    console.log(enemy, enemyClass);
+    attack(player, enemyClass);
+    updateHealthBars(player, enemyClass);
+    attack(enemyClass, player);
+    updateHealthBars(player, enemyClass);
   });
-
-  // const get = () => {
-  //   let name = getCoworker();
-  //   console.log(coworkers[name]);
-  //   return coworkers[name];
-  // };
-
-  // export const displayWinModal = () => {
-  //   let p = document.querySelector(".postFightText");
-  //   let goBack = document.getElementById("goBack");
-  //   let bossFight = document.getElementById("bossFight");
-  //   let dice = document.getElementById("button");
-  //   p.textContent = `You win.`;
-
-  //   dice.setAttribute("disabled", true);
-  //   shopKeep.style.display = "block";
-  //   goBack.style.display = "block";
-  //   bossFight.style.display = "block";
-  // };
 
   const backToWork = () => {
     const goBack = document.getElementById("goBack");
     goBack.addEventListener("click", () => {
       let bossFight = document.getElementById("bossFight");
       let dice = document.getElementById("button");
-      // const get = () => {
-      //   let name = getCoworker();
-      //   console.log(coworkers[name]);
-      // };
-      get();
-
+      enemy = get();
       let p = document.querySelector(".postFightText");
       p.textContent = "";
       dice.removeAttribute("disabled");
@@ -119,27 +98,22 @@ start.addEventListener("click", () => {
     });
   }
 
-  // const button = document.getElementById("button");
-  // button.addEventListener("click", () => {
-  //   attack(dude, rat);
-  //   updateHealthBars(dude, rat);
-  //   attack(rat, dude);
-  //   updateHealthBars(dude, rat);
-  // });
-
   const buy = (character, item) => {
     character.money -= item.price;
     character.getItem(item);
-    /*
-    shopkeep.items.indexOf checks "espresso" or "union card" === [{},{},{}]
-    {name: "espresso"}
-    */
     let index = shopkeep.items.findIndex(obj => {
       return obj.name === item;
     });
     console.log(index);
     shopkeep.items.splice(index, 1);
     console.log(character, shopkeep);
+     
+    
+    /*
+    shopkeep.items.indexOf checks "espresso" or "union card" === [{},{},{}]
+    {name: "espresso"}
+    */
+    
   };
 
   const shopKeep = document.getElementById("shopKeep");
@@ -164,6 +138,7 @@ start.addEventListener("click", () => {
       shopMenu.appendChild(div);
       div.innerHTML = `
         <div class="itemGrid">
+          <img src="${items[index].img}" alt="${items[index].name}">
           <p>${items[index].name}</p>
           <p>$${items[index].price}</p>
           <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItem}>Buy</button></div>
@@ -173,8 +148,12 @@ start.addEventListener("click", () => {
       buyBtn.addEventListener("click",  function(){
         let itemIndex = buyBtn.value;
         console.log("clicked", itemIndex);
-        buy(character, itemIndex);
-        buyBtn.setAttribute(`disabled`, true);
+        if (character.money >= itemIndex.price) {
+          buy(character, itemIndex);
+          buyBtn.setAttribute(`disabled`, true);
+        } else {
+          console.log("insufficient funds");
+        }
       });
     });
     exitButton();
@@ -201,11 +180,6 @@ start.addEventListener("click", () => {
       shopKeep.removeAttribute("disabled");
     });
   };
-
-  // const getCoworker = () => {
-  //   const keys = Object.keys(coworkers);
-  //   return keys[Math.floor(Math.random() * keys.length)];
-  // };
 });
 
 export const displayWinModal = () => {

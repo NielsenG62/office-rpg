@@ -18,6 +18,7 @@ const attack = (attacker, defender) => {
     damage(attacker, defender);
     if (defender.hp <= 0){
       displayWinModal();
+      Character.money += 5;
     }
   } else if (evade > attack) {
     console.log("Attack missed!");
