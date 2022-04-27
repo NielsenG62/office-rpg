@@ -30,6 +30,8 @@ start.addEventListener("click", () => {
   // let enemyClass = get();
   // enemy.npcGen(enemyClass);
   // updateHealthBars(player, enemyClass);
+  start.style.display = 'none';
+  selector.style.display = 'none';
 
 
   const button = document.getElementById("button");
@@ -53,9 +55,33 @@ start.addEventListener("click", () => {
       shopKeep.style.display = "none";
       goBack.style.display = "none";
       bossFight.style.display = "none";
+
+      // let pocket = document.getElementById("pocket");
+      // player.inventory.forEach((e) => {
+      //   let newLi = document.createElement("li");
+      //   pocket.append(newLi);
+      //   newLi.textContent = e.name;
+      // });
+    });
+  };
+
+  const bossFight = () => {
+    const fightBoss = document.getElementById("bossFight");
+    fightBoss.addEventListener("click", () => {
+      const goBack = document.getElementById("goBack");
+      let dice = document.getElementById("button");
+      // enemy = new Enemy();
+      enemy.npcGen("Boss");
+      let p = document.querySelector(".postFightText");
+      p.textContent = "";
+      dice.removeAttribute("disabled");
+      shopKeep.style.display = "none";
+      goBack.style.display = "none";
+      fightBoss.style.display = "none";
     });
   };
   backToWork();
+  bossFight();
 
 
   function updateHealthBars (player, enemy){
@@ -89,31 +115,24 @@ start.addEventListener("click", () => {
     attack.textContent = player.atk;
     evasion.textContent = player.eva;
     defense.textContent = player.def;
-
-    let pocket = document.getElementById("pocket");
-    player.inventory.forEach((e) => {
-      let newLi = document.createElement("li");
-      pocket.append(newLi);
-      newLi.textContent = e;
-    });
+    
+    let money = document.getElementById("money");
+    money.textContent = player.money;
   }
 
-  const buy = (player, item) => {
-    player.money -= item.price;
-    player.getItem(item);
+  const buy = (player, nameOfItem, itemWithIndex) => {
+    player.money -= itemWithIndex.price;
+    player.getItem(itemWithIndex);
     let index = shopkeep.items.findIndex(obj => {
-      return obj.name === item;
+      return obj.name === nameOfItem;
     });
+
+    let money = document.getElementById("money");
+    money.textContent = player.money;
     console.log(index);
     shopkeep.items.splice(index, 1);
     console.log(player, shopkeep);
-     
-    
-    /*
-    shopkeep.items.indexOf checks "espresso" or "union card" === [{},{},{}]
-    {name: "espresso"}
-    */
-    
+
   };
 
   const shopKeep = document.getElementById("shopKeep");
@@ -129,27 +148,32 @@ start.addEventListener("click", () => {
   //UI shopkeep
   const shopMenu = document.querySelector(".shopMenu");
   const populate = (player) => {
-    let items = shopkeep.items;
+    const items = shopkeep.items;
+
     items.forEach((item) => {
-      const index = shopkeep.items.indexOf(item);
-      const shopItem = shopkeep.items[index].name;
+      const index = items.indexOf(item);
+      const shopItemIndex = items[index];
+      const shopItemName = items[index].name;
+      const shopItemPrice = items[index].price;
+
       const div = document.createElement("div");
       div.classList.add(`itemBox`);
       shopMenu.appendChild(div);
       div.innerHTML = `
         <div class="itemGrid">
-          <img src="${items[index].img}" alt="${items[index].name} image">
-          <p>${items[index].name}</p>
-          <p>$${items[index].price}</p>
-          <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItem}>Buy</button></div>
+          <img src="${shopItemIndex.img}" alt="${shopItemName} image">
+          <p>${shopItemName}</p>
+          <p>$${shopItemPrice}</p>
+          <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItemName}>Buy</button></div>
         </div>
       `;
+
       const buyBtn = document.getElementById(`shopIndex${index}`);
       buyBtn.addEventListener("click",  function(){
-        let itemIndex = buyBtn.value;
-        console.log("clicked", itemIndex);
-        if (player.money >= itemIndex.price) {
-          buy(player, itemIndex);
+        let idWithIndex = buyBtn.value;
+        console.log("clicked", idWithIndex);
+        if (player.money >= items[index].price) {
+          buy(player, idWithIndex, items[index]);
           buyBtn.setAttribute(`disabled`, true);
         } else {
           console.log("insufficient funds");

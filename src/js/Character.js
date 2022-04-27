@@ -38,28 +38,32 @@ export default class Character {
 
   levelUp(){
     if (this.classType === "Fighter") {
-      this.atk += 10;
+      this.atk += 2;
     }else if (this.classType === "Rogue"){
-      this.eva += 10;
-    }else {
-      this.def += 10;
+      this.eva += 2;
+    }else if (this.classType === "Tank"){
+      this.def += 2;
+    } else {
+      console.log("something went wrong");
     }
     
     return this.lvl++;
   }
 
   getItem(item) {
-    if (item === "pen") {
+    if (item.name === "pen") {
       this.atk += 5;
       this.inventory.push(item);
-    } else if (item === "pocket-protector") {
+    } else if (item.name === "pocket-protector") {
       this.def += 5;
       this.inventory.push(item);
-    } else if (item === "coffee") {
-      this.inventory.push(item);
-    } else {
+    } else if (item.name === "stapler") {
       this.eva += 5;
       this.inventory.push(item);
+    } else if (item.name === "espresso" || item.name === "mocha" || item.name === "latte") {
+      this.inventory.push(item);
+    } else {
+      console.log("something went wrong");
     }
   }
 

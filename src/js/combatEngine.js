@@ -17,9 +17,18 @@ const attack = (attacker, defender) => {
   if (attack > evade) {
     damage(attacker, defender);
     if (defender.hp <= 0){
-      attacker.money += 5;
-      console.log(attacker);
-      displayWinModal();
+      if (attacker.classType === "Fighter" || attacker.classType === "Rogue" || attacker.classType === "Tank") {
+        attacker.money += 5;
+        attacker.levelUp();
+        console.log(attacker);
+        displayWinModal();
+      } else {
+        console.log("you lose");
+      }
+      // attacker.money += 5;
+      // Character.levelup();
+      // console.log(attacker);
+      // displayWinModal();
     }
   } else if (evade > attack) {
     console.log("Attack missed!");

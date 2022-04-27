@@ -19,15 +19,15 @@ export default class Enemy {
     }else if (type === "Energy Vampire") {
       this.hp = 60;
       this.atk = 50;
-      this.eva = 80;
+      this.eva = 70;
       this.def = 40;
       this.enemyType = "Energy Vampire";
       this.maxHp = this.hp;
     }else if (type === "Boss") {
-      this.hp = 80;
+      this.hp = 100;
       this.atk = 75;
-      this.eva = 45;
-      this.def = 65;
+      this.eva = 55;
+      this.def = 70;
       this.enemyType = "Boss";
       this.maxHp = this.hp;
     }else {
