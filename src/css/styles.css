@@ -91,3 +91,11 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+#hp2 strong{
+  display: flex;
+};
+
+h1, h2, h3 {
+  margin: 1rem;
+}

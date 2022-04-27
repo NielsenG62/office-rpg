@@ -24,12 +24,13 @@ start.addEventListener("click", () => {
     let newCoworkerName = getCoworker();
     console.log(newCoworkerName, coworkers[newCoworkerName]);
     updateHealthBars(player, newCoworkerName);
+
+    let hp2 = document.getElementById("hp2");
+    hp2.innerHTML = "";
+    hp2.innerHTML = `<strong>${newCoworkerName}</strong>`;
     return coworkers[newCoworkerName];
   };
   let enemy = get();
-  // let enemyClass = get();
-  // enemy.npcGen(enemyClass);
-  // updateHealthBars(player, enemyClass);
   start.style.display = 'none';
   selector.style.display = 'none';
 
@@ -70,7 +71,6 @@ start.addEventListener("click", () => {
     fightBoss.addEventListener("click", () => {
       const goBack = document.getElementById("goBack");
       let dice = document.getElementById("button");
-      // enemy = new Enemy();
       enemy.npcGen("Boss");
       let p = document.querySelector(".postFightText");
       p.textContent = "";
@@ -78,6 +78,27 @@ start.addEventListener("click", () => {
       shopKeep.style.display = "none";
       goBack.style.display = "none";
       fightBoss.style.display = "none";
+
+      let canvas = document.querySelector(".canvas");
+      let h2 = document.createElement("h2");
+      let h1 = document.createElement("h1");
+      let unneccesaryTestText = document.createElement("h2");
+
+      let hp2 = document.getElementById("hp2");
+      hp2.innerHTML = "";
+      hp2.innerHTML = `<strong>The CEO</strong>`;
+      h2.textContent = `*rumblings of company-wide lay-offs*`;
+      h1.textContent = `Boss: "Time for your Performance Evaluation!"`;
+      unneccesaryTestText.textContent = `You little twat!`;
+      // h1.textContent = `We aren't anti-union, just pro *company*."`;
+      canvas.append(h2);
+      setTimeout(() => {
+        canvas.append(h1);
+      }, 800);
+      setTimeout(() => {
+        h1.textContent = `We aren't anti-union, just pro *company*."`;
+        canvas.append(unneccesaryTestText);
+      }, 3000);
     });
   };
   backToWork();
@@ -162,6 +183,7 @@ start.addEventListener("click", () => {
       const shopItemIndex = items[index];
       const shopItemName = items[index].name;
       const shopItemPrice = items[index].price;
+      const bonus = items[index].bonus;
 
       const div = document.createElement("div");
       div.classList.add(`itemBox`);
@@ -171,6 +193,7 @@ start.addEventListener("click", () => {
           <img src="${shopItemIndex.img}" alt="${shopItemName} image">
           <p>${shopItemName}</p>
           <p>$${shopItemPrice}</p>
+          <p>$${bonus}</p>
           <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItemName}>Buy</button></div>
         </div>
       `;

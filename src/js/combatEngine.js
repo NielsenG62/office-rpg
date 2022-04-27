@@ -24,11 +24,11 @@ const attack = (attacker, defender) => {
         displayWinModal();
       } else {
         console.log("you lose");
+        let canvas = document.querySelector(".canvas");
+        let h2 = document.createElement("h2");
+        h2.textContent = "You've been laid off!";
+        canvas.append(h2);
       }
-      // attacker.money += 5;
-      // Character.levelup();
-      // console.log(attacker);
-      // displayWinModal();
     }
   } else if (evade > attack) {
     console.log("Attack missed!");
@@ -41,7 +41,7 @@ const damage = (attacker, defender) => {
   let defReduced = defender.def/100;
   let atkReduced = attacker.atk*defReduced;
   let remainingAtk = attacker.atk - atkReduced;
-  return defender.hp -= remainingAtk;
+  return Math.round(defender.hp -= remainingAtk);
 };
 
 const drink = (character, drink) => {
