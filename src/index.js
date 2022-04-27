@@ -13,7 +13,6 @@ start.addEventListener("click", () => {
   let selector = document.getElementById("selector");
   let characterClass = selector.options[selector.selectedIndex].value;
   player.class(characterClass);
-  let enemy;
 
   //generate Enemy process:
   const getCoworker = () => {
@@ -22,23 +21,24 @@ start.addEventListener("click", () => {
   };
 
   const get = () => {
-    let name = getCoworker();
-    console.log(name, coworkers[name]);
-    return coworkers[name];
+    let newCoworkerName = getCoworker();
+    console.log(newCoworkerName, coworkers[newCoworkerName]);
+    updateHealthBars(player, newCoworkerName);
+    return coworkers[newCoworkerName];
   };
-
-  let enemyClass = get();
+  let enemy = get();
+  // let enemyClass = get();
   // enemy.npcGen(enemyClass);
-  updateHealthBars(player, enemyClass);
+  // updateHealthBars(player, enemyClass);
 
 
   const button = document.getElementById("button");
   button.addEventListener("click", () => {
-    console.log(enemy, enemyClass);
-    attack(player, enemyClass);
-    updateHealthBars(player, enemyClass);
-    attack(enemyClass, player);
-    updateHealthBars(player, enemyClass);
+    console.log(enemy);
+    attack(player, enemy);
+    updateHealthBars(player, enemy);
+    attack(enemy, player);
+    updateHealthBars(player, enemy);
   });
 
   const backToWork = () => {
@@ -58,10 +58,10 @@ start.addEventListener("click", () => {
   backToWork();
 
 
-  function updateHealthBars (character, enemy){
+  function updateHealthBars (player, enemy){
     let hp1 = document.getElementById(`hp1`);
     let hp2 = document.getElementById(`hp2`);
-    const percentage1 = (character.hp /character.maxHp) * 100;
+    const percentage1 = (player.hp /player.maxHp) * 100;
     const percentage2 = (enemy.hp/enemy.maxHp) * 100;
     hp1.style.cssText = `
       background: lightblue;
@@ -82,31 +82,31 @@ start.addEventListener("click", () => {
     let evasion = document.getElementById("evasion");
     let defense = document.getElementById("defense");
 
-    charClass.textContent = `Class: ${character.classType}`;
-    level.textContent = character.lvl;
-    health.textContent = character.hp;
-    totalHealth.textContent = character.maxHp;
-    attack.textContent = character.atk;
-    evasion.textContent = character.eva;
-    defense.textContent = character.def;
+    charClass.textContent = `Class: ${player.classType}`;
+    level.textContent = player.lvl;
+    health.textContent = player.hp;
+    totalHealth.textContent = player.maxHp;
+    attack.textContent = player.atk;
+    evasion.textContent = player.eva;
+    defense.textContent = player.def;
 
     let pocket = document.getElementById("pocket");
-    character.inventory.forEach((e) => {
-      pocket.innerHTML = `
-      <li>${e}</li>;
-    `;
+    player.inventory.forEach((e) => {
+      let newLi = document.createElement("li");
+      pocket.append(newLi);
+      newLi.textContent = e;
     });
   }
 
-  const buy = (character, item) => {
-    character.money -= item.price;
-    character.getItem(item);
+  const buy = (player, item) => {
+    player.money -= item.price;
+    player.getItem(item);
     let index = shopkeep.items.findIndex(obj => {
       return obj.name === item;
     });
     console.log(index);
     shopkeep.items.splice(index, 1);
-    console.log(character, shopkeep);
+    console.log(player, shopkeep);
      
     
     /*
@@ -128,7 +128,7 @@ start.addEventListener("click", () => {
 
   //UI shopkeep
   const shopMenu = document.querySelector(".shopMenu");
-  const populate = (character) => {
+  const populate = (player) => {
     let items = shopkeep.items;
     items.forEach((item) => {
       const index = shopkeep.items.indexOf(item);
@@ -138,7 +138,7 @@ start.addEventListener("click", () => {
       shopMenu.appendChild(div);
       div.innerHTML = `
         <div class="itemGrid">
-          <img src="${items[index].img}" alt="${items[index].name}">
+          <img src="${items[index].img}" alt="${items[index].name} image">
           <p>${items[index].name}</p>
           <p>$${items[index].price}</p>
           <div class="footer"><button class="btn btn-primary buyBtn" id="shopIndex${index}" value=${shopItem}>Buy</button></div>
@@ -148,8 +148,8 @@ start.addEventListener("click", () => {
       buyBtn.addEventListener("click",  function(){
         let itemIndex = buyBtn.value;
         console.log("clicked", itemIndex);
-        if (character.money >= itemIndex.price) {
-          buy(character, itemIndex);
+        if (player.money >= itemIndex.price) {
+          buy(player, itemIndex);
           buyBtn.setAttribute(`disabled`, true);
         } else {
           console.log("insufficient funds");
