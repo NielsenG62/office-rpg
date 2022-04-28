@@ -6,7 +6,7 @@ export default class Character {
     this.def = defense;
     this.lvl = 1;
     this.maxHp = hp;
-    this.money = 0;
+    this.money = 35;
     this.inventory = [];
     this.classType = {};
   }
@@ -21,8 +21,8 @@ export default class Character {
       this.classType = "Fighter";
     }else if (classType === "Rogue") {
       this.hp = 70;
-      this.atk = 65;
-      this.eva = 80;
+      this.atk = 60;
+      this.eva = 75;
       this.def = 30;
       this.maxHp = this.hp;
       this.classType = "Rogue";
@@ -51,6 +51,11 @@ export default class Character {
   }
 
   getItem(item) {
+    let healing = () => {
+      if (this.hp >= this.maxHp){
+        this.hp = this.maxHp;
+      }
+    };
     if (item.name === "pen") {
       this.atk += 3;
       this.inventory.push(item);
@@ -62,17 +67,24 @@ export default class Character {
       this.inventory.push(item);
     } else if (item.name === "latte") {
       this.hp += 30;
+      healing();
     } else if (item.name === "mocha") {
       this.hp += 50;
+      healing();
     } else if (item.name === "espresso") {
       this.hp += 70;
+      healing();
     } else if (item.name === "class-action-lawsuit") {
       this.hp += 50;
       this.att += 5;
       this.def += 5;
       this.eva += 5;
+      this.inventory.push(item);
+      healing();
     } else if (item.name === "union-card") {
-      this.hp += 15;
+      // this.hp += 15;
+      healing();
+      this.inventory.push(item);
     } else {
       console.log("something went wrong");
     }

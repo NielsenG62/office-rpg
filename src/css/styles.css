@@ -34,6 +34,7 @@ body {
   margin: auto;
   width: 60vw;
   height: 60vh;
+  overflow: auto;
 }
 
 .shop {
@@ -81,7 +82,7 @@ body {
 }
 
 #character:hover {
-  border: 3px double red;
+  border: 3px solid black;
   color: red;
 }
 
@@ -90,10 +91,6 @@ body {
   align-items: center;
   margin: auto;
   margin-top: 15px;
-}
-
-#button:hover {
-  
 }
 
 .statsAndDisplay {
@@ -107,8 +104,13 @@ body {
 
 h1, h2, h3 {
   margin: 1rem;
+  text-align: center;
 }
 
 .button-wrapper {
   margin-bottom: 5px;
+}
+
+.hidden {
+  display: none;
 }

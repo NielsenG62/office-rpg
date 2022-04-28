@@ -12,8 +12,9 @@ const roll = (e) => {
 const attack = (attacker, defender) => {
   let attack = roll(attacker.atk);
   let evade = roll(defender.eva);
-  console.log(attack, evade);
-  
+  let attackBtn = document.getElementById("attack-button");
+  let resetBtn = document.getElementById("reset-button");
+
   if (attack > evade) {
     damage(attacker, defender);
     if (defender.hp <= 0){
@@ -21,24 +22,22 @@ const attack = (attacker, defender) => {
         attacker.money += 5;
         attacker.levelUp();
         console.log(attacker);
-        displayWinModal();
-
+        displayWinModal(defender);
       } else {
-        console.log("you lose");
         let canvas = document.querySelector(".canvas");
         let h2 = document.createElement("h2");
         h2.textContent = "You've been laid off!";
         canvas.append(h2);
+        attackBtn.setAttribute("disabled", true);
+        resetBtn.classList.remove("hidden");
       }
     }
   } else if (evade > attack) {
-    console.log("Attack missed!");
     let canvas = document.querySelector(".canvas");
     let h2 = document.createElement("h2");
     h2.textContent = "Attack missed!";
     canvas.append(h2);
   } else if (attack === evade) {
-    console.log("Git Gud");
     let canvas = document.querySelector(".canvas");
     let h2 = document.createElement("h2");
     h2.textContent = "Git Gud.";

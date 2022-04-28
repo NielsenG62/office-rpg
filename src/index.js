@@ -35,26 +35,45 @@ start.addEventListener("click", () => {
   selector.style.display = 'none';
 
 
-  const button = document.getElementById("button");
-  button.addEventListener("click", () => {
-    console.log(enemy);
+  const damage = document.getElementById("attack-button");
+  damage.addEventListener("click", () => {
+    damage.setAttribute("disabled", true);
     attack(player, enemy);
     updateHealthBars(player, enemy);
-    attack(enemy, player);
-    updateHealthBars(player, enemy);
+    if (enemy.hp > 0) {
+      setTimeout(() => {
+        attack(enemy, player);
+        updateHealthBars(player, enemy);
+        damage.removeAttribute("disabled");
+      }, 400);
+    }
+
+    
+    // attack(player, enemy);
+    // updateHealthBars(player, enemy);
   });
 
-  const backToWork = () => {
+  const backToWork = (player) => {
     const goBack = document.getElementById("goBack");
     goBack.addEventListener("click", () => {
-      player.inventory.forEach((obj) => {
-        if ("union-card" in obj) {
-          player.hp += 15;
+    
+      console.log(player, player.inventory);
+      player.inventory.find((item) => {
+        if(item.name === "union-card"){
+          if (player.money > 2) {
+            player.hp += 15;
+            player.money -= 2;
+          } else if (player.money < 2) {
+            return;
+          }
         }
       });
+      if (player.hp >= player.maxHp){
+        player.hp = player.maxHp;
+      }
 
       let bossFight = document.getElementById("bossFight");
-      let dice = document.getElementById("button");
+      let dice = document.getElementById("attack-button");
       enemy = get();
       enemy.hp += (player.lvl * 2);
       enemy.maxHp = enemy.hp;
@@ -64,13 +83,6 @@ start.addEventListener("click", () => {
       shopKeep.style.display = "none";
       goBack.style.display = "none";
       bossFight.style.display = "none";
-
-      // let pocket = document.getElementById("pocket");
-      // player.inventory.forEach((e) => {
-      //   let newLi = document.createElement("li");
-      //   pocket.append(newLi);
-      //   newLi.textContent = e.name;
-      // });
     });
   };
 
@@ -78,7 +90,7 @@ start.addEventListener("click", () => {
     const fightBoss = document.getElementById("bossFight");
     fightBoss.addEventListener("click", () => {
       const goBack = document.getElementById("goBack");
-      let dice = document.getElementById("button");
+      let dice = document.getElementById("attack-button");
       enemy.npcGen("Boss");
       let p = document.querySelector(".postFightText");
       p.textContent = "";
@@ -91,14 +103,12 @@ start.addEventListener("click", () => {
       let h2 = document.createElement("h2");
       let h1 = document.createElement("h1");
       let unneccesaryTestText = document.createElement("h2");
-
       let hp2 = document.getElementById("hp2");
       hp2.innerHTML = "";
       hp2.innerHTML = `<strong>The CEO</strong>`;
       h2.textContent = `*rumblings of company-wide lay-offs*`;
-      h1.textContent = `Boss: "Time for your Performance Evaluation!"`;
-      unneccesaryTestText.textContent = `You little twat!`;
-      // h1.textContent = `We aren't anti-union, just pro *company*."`;
+      h1.textContent = `*A wild boss appears`;
+      unneccesaryTestText.textContent = "Time for your Performance Evaluation!";
       canvas.append(h2);
       setTimeout(() => {
         canvas.append(h1);
@@ -109,7 +119,7 @@ start.addEventListener("click", () => {
       }, 3000);
     });
   };
-  backToWork();
+  backToWork(player);
   bossFight();
 
 
@@ -147,9 +157,6 @@ start.addEventListener("click", () => {
 
     let money = document.getElementById("money");
     money.textContent = player.money;
-
-    // let pocket = document.getElementById("pocket");
-    // pocket.textContent = player.inventory;
   }
 
   const buy = (player, nameOfItem, itemWithIndex) => {
@@ -165,16 +172,11 @@ start.addEventListener("click", () => {
     let newItems = document.createElement("li");
     pocket.append(newItems);
     newItems.textContent = nameOfItem;
-    
     shopkeep.items.splice(index, 1);
-    console.log(player, shopkeep);
-
   };
 
   const shopKeep = document.getElementById("shopKeep");
   shopKeep.addEventListener("click", function(){
-    // buy(dude, shopkeep.items[1])
-    console.log("clicked");
     populate(player);
     shopKeep.setAttribute(`disabled`, true);
     let shop = document.querySelector(".shop");
@@ -245,7 +247,7 @@ start.addEventListener("click", () => {
   };
 });
 
-export const displayWinModal = () => {
+export const displayWinModal = (defender) => {
   let canvas = document.querySelectorAll(".canvas > h2");
   canvas.forEach((e) => {
     e.remove();
@@ -254,8 +256,12 @@ export const displayWinModal = () => {
   let p = document.querySelector(".postFightText");
   let goBack = document.getElementById("goBack");
   let bossFight = document.getElementById("bossFight");
-  let dice = document.getElementById("button");
+  let dice = document.getElementById("attack-button");
   let shopKeep = document.getElementById("shopKeep");
+  let restart = document.getElementById("restart-button");
+  if (defender.enemyType === "Boss") {
+    restart.classList.remove("hidden");   
+  }
   p.textContent = `You win.`;
   dice.setAttribute("disabled", true);
   shopKeep.style.display = "block";
