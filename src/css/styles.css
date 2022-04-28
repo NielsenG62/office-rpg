@@ -35,6 +35,7 @@ body {
   width: 60vw;
   height: 60vh;
   overflow: auto;
+  border: inset 4px blanchedalmond;
 }
 
 .shop {
@@ -113,4 +114,8 @@ h1, h2, h3 {
 
 .hidden {
   display: none;
+}
+
+.restart {
+  text-align: center;
 }

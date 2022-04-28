@@ -13,6 +13,7 @@ start.addEventListener("click", () => {
   let selector = document.getElementById("selector");
   let characterClass = selector.options[selector.selectedIndex].value;
   player.class(characterClass);
+  player.name = "You";
 
   //generate Enemy process:
   const getCoworker = () => {
@@ -22,7 +23,9 @@ start.addEventListener("click", () => {
 
   const get = () => {
     let newCoworkerName = getCoworker();
-    console.log(newCoworkerName, coworkers[newCoworkerName]);
+    //create variable name as .name string property.
+    let newEnemyObj = coworkers[newCoworkerName];
+    newEnemyObj.name = newCoworkerName;
     updateHealthBars(player, newCoworkerName);
 
     let hp2 = document.getElementById("hp2");
@@ -33,7 +36,6 @@ start.addEventListener("click", () => {
   let enemy = get();
   start.style.display = 'none';
   selector.style.display = 'none';
-
 
   const damage = document.getElementById("attack-button");
   damage.addEventListener("click", () => {
@@ -47,17 +49,13 @@ start.addEventListener("click", () => {
         damage.removeAttribute("disabled");
       }, 400);
     }
-
-    
     // attack(player, enemy);
     // updateHealthBars(player, enemy);
   });
 
   const backToWork = (player) => {
     const goBack = document.getElementById("goBack");
-    goBack.addEventListener("click", () => {
-    
-      console.log(player, player.inventory);
+    goBack.addEventListener("click", () => {   
       player.inventory.find((item) => {
         if(item.name === "union-card"){
           if (player.money > 2) {
@@ -92,6 +90,7 @@ start.addEventListener("click", () => {
       const goBack = document.getElementById("goBack");
       let dice = document.getElementById("attack-button");
       enemy.npcGen("Boss");
+      enemy.name = "The Boss";
       let p = document.querySelector(".postFightText");
       p.textContent = "";
       dice.removeAttribute("disabled");
@@ -105,7 +104,7 @@ start.addEventListener("click", () => {
       let unneccesaryTestText = document.createElement("h2");
       let hp2 = document.getElementById("hp2");
       hp2.innerHTML = "";
-      hp2.innerHTML = `<strong>The CEO</strong>`;
+      hp2.innerHTML = `<strong>The BOSS</strong>`;
       h2.textContent = `*rumblings of company-wide lay-offs*`;
       h1.textContent = `*A wild boss appears`;
       unneccesaryTestText.textContent = "Time for your Performance Evaluation!";
@@ -114,7 +113,6 @@ start.addEventListener("click", () => {
         canvas.append(h1);
       }, 800);
       setTimeout(() => {
-        h1.textContent = `We aren't anti-union, just pro *company*."`;
         canvas.append(unneccesaryTestText);
       }, 3000);
     });
@@ -162,17 +160,13 @@ start.addEventListener("click", () => {
   const buy = (player, nameOfItem, itemWithIndex) => {
     player.money -= itemWithIndex.price;
     player.getItem(itemWithIndex);
-    let index = shopkeep.items.findIndex(obj => {
-      return obj.name === nameOfItem;
-    });
-
     let money = document.getElementById("money");
     money.textContent = player.money;
     let pocket = document.getElementById("pocket");
     let newItems = document.createElement("li");
     pocket.append(newItems);
     newItems.textContent = nameOfItem;
-    shopkeep.items.splice(index, 1);
+    
   };
 
   const shopKeep = document.getElementById("shopKeep");
@@ -190,7 +184,7 @@ start.addEventListener("click", () => {
 
     items.forEach((item) => {
       const index = items.indexOf(item);
-      const shopItemIndex = items[index];
+      // const shopItemIndex = items[index];
       const shopItemName = items[index].name;
       const shopItemPrice = items[index].price;
       const bonus = items[index].bonus;
@@ -199,8 +193,7 @@ start.addEventListener("click", () => {
       div.classList.add(`itemBox`);
       shopMenu.appendChild(div);
       div.innerHTML = `
-        <div class="itemGrid">
-          <img src="${shopItemIndex.img}" alt="${shopItemName} image">
+        <div class="itemGrid${index}">
           <p>${shopItemName}</p>
           <p>$${shopItemPrice}</p>
           <p>${bonus}</p>
@@ -211,22 +204,22 @@ start.addEventListener("click", () => {
       const buyBtn = document.getElementById(`shopIndex${index}`);
       buyBtn.addEventListener("click",  function(){
         let idWithIndex = buyBtn.value;
-        console.log("clicked", idWithIndex);
         if (player.money >= items[index].price) {
           buy(player, idWithIndex, items[index]);
           buyBtn.setAttribute(`disabled`, true);
           updateHealthBars (player, enemy);
         } else {
-          console.log("insufficient funds");
+          buyBtn.innerText = "Insufficient Funds";
         }
       });
     });
-    exitButton();
+    exitButton(player);
   };
 
-  const exitButton = () => {
+  const exitButton = (player) => {
     let exit = document.createElement("button");
     exit.setAttribute("id", "exit");
+    exit.setAttribute("class", "btn btn-secondary");
     exit.textContent = "Exit Shop";
     let shop = document.querySelector(".shop");
     shop.appendChild(exit);
@@ -240,6 +233,16 @@ start.addEventListener("click", () => {
         });
         exit.remove();
       }
+      if (player.inventory.length > 0){
+        for (let i = 0; i < player.inventory.length; i++) {
+          for (let j = 0; j < shopkeep.items.length; j++){
+            if (shopkeep.items[j].name === player.inventory[i].name){
+              shopkeep.items.splice(j, 1);
+            }
+          }
+        }
+      }
+
       shop.style.display = "none";
       let shopKeep = document.getElementById("shopKeep");
       shopKeep.removeAttribute("disabled");
@@ -262,7 +265,7 @@ export const displayWinModal = (defender) => {
   if (defender.enemyType === "Boss") {
     restart.classList.remove("hidden");   
   }
-  p.textContent = `You win.`;
+  p.textContent = `Coworker Defeated. Go meet with HR.`;
   dice.setAttribute("disabled", true);
   shopKeep.style.display = "block";
   goBack.style.display = "block";

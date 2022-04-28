@@ -6,7 +6,7 @@ export default class Character {
     this.def = defense;
     this.lvl = 1;
     this.maxHp = hp;
-    this.money = 35;
+    this.money = 0;
     this.inventory = [];
     this.classType = {};
   }
@@ -68,12 +68,15 @@ export default class Character {
     } else if (item.name === "latte") {
       this.hp += 30;
       healing();
+      this.inventory.push(item);
     } else if (item.name === "mocha") {
       this.hp += 50;
       healing();
+      this.inventory.push(item);
     } else if (item.name === "espresso") {
       this.hp += 70;
       healing();
+      this.inventory.push(item);
     } else if (item.name === "class-action-lawsuit") {
       this.hp += 50;
       this.att += 5;
@@ -82,7 +85,6 @@ export default class Character {
       this.inventory.push(item);
       healing();
     } else if (item.name === "union-card") {
-      // this.hp += 15;
       healing();
       this.inventory.push(item);
     } else {
