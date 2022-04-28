@@ -19,7 +19,7 @@ A simple turn-based text RPG which builds you up in the corporate rat race.
 | **_Description_:** |
 |---|
 
-Originally pitched to be a combination of an office-themed rpg and a D&D 5e companion, it grew into a choose-your-own-adventure style game. A random NPC enemy is generated upon start, We used 100% vanilla Javascript, using modern ES conventions to the best of our ability.
+Originally pitched to be a combination of an office-themed rpg and a D&D 5e companion, it grew into a choose-your-own-adventure style game. A random NPC enemy is generated upon start, We used 100% vanilla Javascript for our JS, using modern ES conventions to the best of our ability.
 
 ---
 
