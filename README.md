@@ -45,7 +45,7 @@ Originally pitched to be a combination of an office-themed rpg and a D&D 5e comp
 - To view tests via Jest, in your CLI type `npm run test`.
 
 #### Known Bugs:
-* Staggered combat to fix attack commentary.
+* Attack button gets stuck disabled after some misses.
 * Scale enemy stats, boss stats.
 * add images for menu.
 * balance stats
